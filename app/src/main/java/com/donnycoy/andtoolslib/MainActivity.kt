@@ -1,6 +1,8 @@
 package com.donnycoy.andtoolslib
 
 import android.os.Bundle
+import android.os.Message
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.donnycoy.andtoolslib.ui.theme.AndToolsLibTheme
+import com.donnycoy.mylibrary.handler.WeakHandler
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,5 +45,19 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 fun GreetingPreview() {
     AndToolsLibTheme {
         Greeting("Android")
+    }
+}
+
+class MyHandler(host : MainActivity) : WeakHandler<MainActivity>(host) {
+    override fun handleMessageWhenServive(msg: Message, host: MainActivity) {
+        when(msg.what) {
+            0 -> {
+                Log.d("TAG", "handleMessageWhenServive")
+            }
+        }
+    }
+
+    override fun handleMessageWhenNotServive(msg: Message) {
+        super.handleMessageWhenNotServive(msg)
     }
 }
