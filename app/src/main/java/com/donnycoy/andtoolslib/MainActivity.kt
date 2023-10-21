@@ -13,9 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.donnycoy.andtoolslib.ui.theme.AndToolsLibTheme
+import com.donnycoy.mylibrary.density.DensityUtils
 import com.donnycoy.mylibrary.handler.WeakHandler
 
 class MainActivity : ComponentActivity() {
+    companion object {
+        private val TAG = MainActivity::class.java.simpleName
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -52,7 +57,7 @@ class MyHandler(host : MainActivity) : WeakHandler<MainActivity>(host) {
     override fun handleMessageWhenServive(msg: Message, host: MainActivity) {
         when(msg.what) {
             0 -> {
-                Log.d("TAG", "handleMessageWhenServive")
+                Log.d("WeakHandler", "handleMessageWhenServive: ${DensityUtils.convertSpToPixel(host.applicationContext, 22f)}")
             }
         }
     }
